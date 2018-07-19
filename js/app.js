@@ -4,6 +4,7 @@
 const iconList = ["fa fa-diamond", "fa fa-diamond", "fa fa-bolt","fa fa-bolt", "fa fa-cube", "fa fa-cube", "fa fa-anchor", "fa fa-anchor", "fa fa-leaf", "fa fa-leaf", "fa fa-bicycle", "fa fa-bicycle", "fa fa-bomb", "fa fa-bomb", "fa fa-paper-plane-o", "fa fa-paper-plane-o"]
 
 const cardsContainer = document.querySelector('.deck');
+const popUp = document.querySelector('.modal');
 
 let openedCards = [];
 let matchedCards = [];
@@ -93,7 +94,7 @@ function compareCards(currentCard, previousCard) {
 // Check if game is over or not
 function checkGameStatus() {
     if (matchedCards.length === iconList.length) {
-        alert("GAME OVER");
+        popUp.style.display = 'block';
     } 
 }
 
@@ -167,7 +168,10 @@ restartButton.addEventListener("click", function(){
     ratingContainer.innerHTML = starsString;
 });
 
-
+// Close Game over pop-up alert on click
+popUp.addEventListener('click', function() {
+    this.style.display = 'none';
+})
 
 // START GAME
 initGame();
