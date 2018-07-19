@@ -1,5 +1,5 @@
 /*
- * Create a list that holds all of your cards
+ * Define variables
  */
 const iconList = ["fa fa-diamond", "fa fa-diamond", "fa fa-bolt","fa fa-bolt", "fa fa-cube", "fa fa-cube", "fa fa-anchor", "fa fa-anchor", "fa fa-leaf", "fa fa-leaf", "fa fa-bicycle", "fa fa-bicycle", "fa fa-bomb", "fa fa-bomb", "fa fa-paper-plane-o", "fa fa-paper-plane-o"]
 
@@ -7,7 +7,6 @@ const cardsContainer = document.querySelector('.deck');
 
 let openedCards = [];
 let matchedCards = [];
-
 
 
 function initGame() {
@@ -25,6 +24,7 @@ function initGame() {
         flip(card);
     }
 }
+
 
 // Cards click event
 function flip(card) {
@@ -51,6 +51,7 @@ function flip(card) {
             }
         });
 }
+
 
 // Compare the two opened cards
 function compareCards(currentCard, previousCard) {
@@ -88,6 +89,7 @@ function compareCards(currentCard, previousCard) {
         addMove();
 }
 
+
 // Check if game is over or not
 function checkGameStatus() {
     if (matchedCards.length === iconList.length) {
@@ -119,11 +121,30 @@ let moves = 0;
 function addMove() {
     moves++;
     movesContainer.innerHTML = moves;
+
+    // Set rating
+    rating();
 }
 
 
-// Show rating
+// Add rating depending on the number of moves done my the current moment
+const ratingContainer = document.querySelector(".stars");
+const star = '<li><i class="fa fa-star"></i></li>';
+let starsString = star + star + star;
+ratingContainer.innerHTML = starsString;
 
+function rating() {
+    switch (moves) {
+        case 11:
+            starsString = star + star;
+            ratingContainer.innerHTML = starsString;
+            break;
+        case 31:
+            starsString = star;
+            ratingContainer.innerHTML = starsString;
+            break;
+    }
+}
 
 
 // Restart button event
@@ -138,22 +159,15 @@ restartButton.addEventListener("click", function(){
 
     // Reset related variables
     matchedCards = [];
+
     moves = 0;
     movesContainer.innerHTML = moves;
+    
+    starsString = star + star + star;
+    ratingContainer.innerHTML = starsString;
 });
 
 
 
 // START GAME
 initGame();
-
-/*
- * set up the event listener for a card. If a card is clicked:
- *  - display the card's symbol (put this functionality in another function that you call from this one)
- *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
- *  - if the list already has another card, check to see if the two cards match
- *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
- *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
- *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
- *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
- */
