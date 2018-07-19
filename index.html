@@ -2,10 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Matching Game</title>
+    <title>Irina's Matching Game</title>
     <meta name="description" content="">
     <link rel="stylesheet prefetch" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
     <link rel="stylesheet prefetch" href="https://fonts.googleapis.com/css?family=Coda">
+    <link href="https://fonts.googleapis.com/css?family=Abel|Lobster" rel="stylesheet">
     <link rel="stylesheet" href="css/app.css">
 </head>
 <body>
@@ -16,7 +17,10 @@
         </header>
         
         <div class='modal' id='pop-up'>
-            <h2>GAME OVER</h2>
+            <h2>Congrats!</h2>
+            <p class="timeText"></p>
+            <p class="ratingText">Rating:</p>
+            <div class="finalRating"></div>
             <p>Click to exit</p>
             <p>Refresh game to start again</p>
         </div>
@@ -27,6 +31,9 @@
 
         	<span class="moves"></span> Moves
 
+            <div class="timer">
+
+            </div>
             <div class="restart">
         		<i class="fa fa-repeat"></i>
         	</div>

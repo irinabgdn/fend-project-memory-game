@@ -17,8 +17,8 @@ body {
 }
 
 body {
-    background: #ffffff url('../img/geometry2.png'); /* Background pattern from Subtle Patterns */
-    font-family: 'Coda', cursive;
+    background: #ffffff url('../img/geometry2.png'); /* Background pattern from Subtle Patterns */ 
+    font-family: 'Abel', sans-serif;
 }
 
 .container {
@@ -29,14 +29,15 @@ body {
 }
 
 h1 {
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Lobster', cursive;
     font-weight: 300;
 }
 
 h2 {
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Lobster', cursive;
     font-weight: 600;
 }
+
 
 /*
  * Styles for the deck of cards
@@ -92,6 +93,7 @@ h2 {
 .deck .card.disable {
     pointer-events: none;
 }
+
 /*
  * Styles for the Score Panel
  */
@@ -114,9 +116,22 @@ h2 {
     display: inline-block;
 }
 
+.score-panel .timer {
+    display: inline-block;
+    margin-left: 50px;
+}
 .score-panel .restart {
     float: right;
     cursor: pointer;
+}
+
+.ratingText {
+    display:inline-block
+}
+
+.finalRating li {
+    list-style: none;
+    display: inline-block;
 }
 
 .modal {
@@ -124,7 +139,7 @@ h2 {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 240px;
+    width: 300px;
     z-index: 10;
     margin: auto;
     border: 6px;

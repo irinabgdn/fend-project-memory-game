@@ -8,7 +8,7 @@ const popUp = document.querySelector('.modal');
 
 let openedCards = [];
 let matchedCards = [];
-
+let gameStatus = false;
 
 function initGame() {
     // Shuffle iconList array
@@ -30,64 +30,73 @@ function initGame() {
 // Cards click event
 function flip(card) {
     
-        card.addEventListener("click", function() {
-            // Define local variables
-            let currentCard = this;
-            let previousCard = openedCards[0];
-            
-            
-            // Check if there is an existing opened card
-            if (openedCards.length === 1) {
+    card.addEventListener("click", function() {
 
-                currentCard.classList.add("open", "show", "disable");
-                openedCards.push(this);
-                
-                // Compare cards
-                compareCards(currentCard, previousCard);
+        // Check if this is the first card flipped
+        if (gameStatus === false) {
+            // Change game status
+            gameStatus = true;    
             
-            } else {
-                // If there is no opened card, add the current card to the opened cards array
-                currentCard.classList.add("open", "show", "disable");
-                openedCards.push(this);
-            }
-        });
+            // Start timer
+            window.setTimeout(calculateTime, 1000);
+        }
+
+        // Define local variables
+        let currentCard = this;
+        let previousCard = openedCards[0];
+                    
+        // Check if there is an existing opened card
+        if (openedCards.length === 1) {
+
+            currentCard.classList.add("open", "show", "disable");
+            openedCards.push(this);
+            
+            // Compare cards
+            compareCards(currentCard, previousCard);
+        
+        } else {
+            // If there is no opened card, add the current card to the opened cards array
+            currentCard.classList.add("open", "show", "disable");
+            openedCards.push(this);
+        }
+    });
 }
 
 
 // Compare the two opened cards
 function compareCards(currentCard, previousCard) {
 
-        if (currentCard.innerHTML === previousCard.innerHTML) {
+    if (currentCard.innerHTML === previousCard.innerHTML) {
 
-            // If cards match, change style 
-            currentCard.classList.add("match");
-            previousCard.classList.add("match");
+        // If cards match, change style 
+        currentCard.classList.add("match");
+        previousCard.classList.add("match");
 
-            // Add cards to the matchedCards array
-            matchedCards.push(currentCard, previousCard);
+        // Add cards to the matchedCards array
+        matchedCards.push(currentCard, previousCard);
+
+        // Reset opened cards array
+        openedCards = [];
+
+        // Check if the game is over
+        checkGameStatus();
+
+    } else {
+        // Wait 400ms until cards flip backward
+        setTimeout(function() {
+
+            // If cards don't match, hide current card
+            currentCard.classList.remove("open", "show", "disable");
+            previousCard.classList.remove("open", "show", "disable");
 
             // Reset opened cards array
-            openedCards = [];
+            openedCards = []; 
 
-            // Check if the game is over
-            checkGameStatus();
+        }, 400)                    
+    }
 
-        } else {
-            // Wait 400ms until cards flip backward
-            setTimeout(function() {
-
-                // If cards don't match, hide current card
-                currentCard.classList.remove("open", "show", "disable");
-                previousCard.classList.remove("open", "show", "disable");
-
-                // Reset opened cards array
-                openedCards = []; 
-
-            }, 400)                    
-        }
-
-        // Add new move
-        addMove();
+    // Add new move
+    addMove();
 }
 
 
@@ -95,6 +104,14 @@ function compareCards(currentCard, previousCard) {
 function checkGameStatus() {
     if (matchedCards.length === iconList.length) {
         popUp.style.display = 'block';
+        gameStatus = false;
+
+        document.querySelector(".finalRating").innerHTML = starsString;
+        if (minutes === 0) {
+            document.querySelector(".timeText").innerHTML = `You finished the game in ${seconds} seconds`;
+        } else {
+            document.querySelector(".timeText").innerHTML = `You finished the game in ${minutes} minutes and ${seconds} seconds`;
+        }
     } 
 }
 
@@ -119,6 +136,7 @@ function shuffle(array) {
 const movesContainer = document.querySelector(".moves");
 movesContainer.innerHTML = 0;
 let moves = 0;
+
 function addMove() {
     moves++;
     movesContainer.innerHTML = moves;
@@ -131,21 +149,59 @@ function addMove() {
 // Add rating depending on the number of moves done my the current moment
 const ratingContainer = document.querySelector(".stars");
 const star = '<li><i class="fa fa-star"></i></li>';
-let starsString = star + star + star;
+let starsString = star + star + star + star + star;
 ratingContainer.innerHTML = starsString;
 
 function rating() {
     switch (moves) {
-        case 11:
+        case 12:
+            starsString = star + star + star + star;
+            ratingContainer.innerHTML = starsString;
+            break;
+        case 20:
+            starsString = star + star + star;
+            ratingContainer.innerHTML = starsString;
+            break;
+        case 28:
             starsString = star + star;
             ratingContainer.innerHTML = starsString;
             break;
-        case 31:
+        case 36:
             starsString = star;
             ratingContainer.innerHTML = starsString;
             break;
     }
 }
+
+// Timer
+const timerContainer = document.querySelector(".timer");
+
+var startTime = new Date().getTime(),
+    time = 0,
+    seconds = 0, 
+    minutes = 0;
+
+timerContainer.innerHTML = `${minutes}min ${seconds}secs`;
+ 
+// Calculate time 
+function calculateTime() {
+    if (gameStatus) {
+        time += 1000;
+        seconds = Math.floor(time / 1000);
+
+        if (seconds % 60 === 0) {
+            minutes ++;
+            seconds -= 60;
+        }
+
+        timerContainer.innerHTML = `${minutes} min  ${seconds} secs`;
+
+        var diff = (new Date().getTime() - startTime) - time;
+    
+        window.setTimeout(calculateTime, (1000 - diff));
+    }
+}
+
 
 
 // Restart button event
@@ -155,17 +211,25 @@ restartButton.addEventListener("click", function(){
     // Delete all cards
     cardsContainer.innerHTML = "";
 
-    // Start new game
-    initGame();
-
     // Reset related variables
     matchedCards = [];
 
     moves = 0;
     movesContainer.innerHTML = moves;
     
-    starsString = star + star + star;
+    starsString = star + star + star + star + star;
     ratingContainer.innerHTML = starsString;
+
+    startTime = new Date().getTime();
+    time = 0;
+    seconds = 0; 
+    minutes = 0;
+    gameStatus = false;
+
+    timerContainer.innerHTML = `${minutes}min ${seconds}secs`;
+
+    // Start new game
+    initGame();
 });
 
 // Close Game over pop-up alert on click
