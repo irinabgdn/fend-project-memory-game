@@ -182,7 +182,7 @@ var startTime,
     seconds = 0, 
     minutes = 0;
 
-timerContainer.innerHTML = `${minutes}min ${seconds}secs`;
+timerContainer.innerHTML = `${minutes} minutes ${seconds} seconds`;
  
 // Calculate time 
 function calculateTime() {
@@ -198,7 +198,7 @@ function calculateTime() {
 
         // Calculate seconds to display
         seconds = seconds % 60;
-        timerContainer.innerHTML = `${minutes} min  ${seconds} secs`;
+        timerContainer.innerHTML = `${minutes} minutes ${seconds} seconds`;
 
         var diff = (new Date().getTime() - startTime) - time;
     
