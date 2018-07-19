@@ -35,9 +35,10 @@ function flip(card) {
         // Check if this is the first card flipped
         if (gameStatus === false) {
             // Change game status
-            gameStatus = true;    
+            gameStatus = true;  
             
             // Start timer
+            startTime = new Date().getTime();
             window.setTimeout(calculateTime, 1000);
         }
 
@@ -176,7 +177,7 @@ function rating() {
 // Timer
 const timerContainer = document.querySelector(".timer");
 
-var startTime = new Date().getTime(),
+var startTime,
     time = 0,
     seconds = 0, 
     minutes = 0;
@@ -186,14 +187,17 @@ timerContainer.innerHTML = `${minutes}min ${seconds}secs`;
 // Calculate time 
 function calculateTime() {
     if (gameStatus) {
+        // Increase time
         time += 1000;
-        seconds = Math.floor(time / 1000);
+        seconds = time / 1000;
 
-        if (seconds % 60 === 0) {
+        // Calculate minutes
+        if ((seconds != 1) && (seconds % 60 === 1)) {
             minutes ++;
-            seconds -= 60;
         }
 
+        // Calculate seconds to display
+        seconds = seconds % 60;
         timerContainer.innerHTML = `${minutes} min  ${seconds} secs`;
 
         var diff = (new Date().getTime() - startTime) - time;
