@@ -82,6 +82,12 @@ h1 {
 }
 
 /*
+* Disable click events
+*/
+.deck .card.disable {
+    pointer-events: none;
+}
+/*
  * Styles for the Score Panel
  */
 
