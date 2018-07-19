@@ -65,7 +65,12 @@ function flip(card) {
 
 
 // Compare the two opened cards
-function compareCards(currentCard, previousCard) {
+function compareCards(currentCard, previousCard) {    
+    // Add new move
+    addMove();
+
+    // Set rating
+    rating();
 
     if (currentCard.innerHTML === previousCard.innerHTML) {
 
@@ -95,9 +100,6 @@ function compareCards(currentCard, previousCard) {
 
         }, 400)                    
     }
-
-    // Add new move
-    addMove();
 }
 
 
@@ -141,9 +143,6 @@ let moves = 0;
 function addMove() {
     moves++;
     movesContainer.innerHTML = moves;
-
-    // Set rating
-    rating();
 }
 
 
@@ -155,7 +154,7 @@ ratingContainer.innerHTML = starsString;
 
 function rating() {
     switch (moves) {
-        case 12:
+        case 14:
             starsString = star + star + star + star;
             ratingContainer.innerHTML = starsString;
             break;
@@ -163,11 +162,11 @@ function rating() {
             starsString = star + star + star;
             ratingContainer.innerHTML = starsString;
             break;
-        case 28:
+        case 26:
             starsString = star + star;
             ratingContainer.innerHTML = starsString;
             break;
-        case 36:
+        case 32:
             starsString = star;
             ratingContainer.innerHTML = starsString;
             break;
@@ -230,7 +229,7 @@ restartButton.addEventListener("click", function(){
     minutes = 0;
     gameStatus = false;
 
-    timerContainer.innerHTML = `${minutes}min ${seconds}secs`;
+    timerContainer.innerHTML = `${minutes} minutes ${seconds} seconds`;
 
     // Start new game
     initGame();
