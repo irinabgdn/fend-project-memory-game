@@ -9,9 +9,10 @@ html {
 }
 
 html,
-body {
-    width: 100%;
-    height: 100%;
+body,
+.container {
+    width: 100vw;
+    height: 100vh;
     margin: 0;
     padding: 0;
 }
@@ -19,6 +20,7 @@ body {
 body {
     background: #ffffff url('../img/geometry2.png'); /* Background pattern from Subtle Patterns */ 
     font-family: 'Abel', sans-serif;
+    font-size: 26px;
 }
 
 .container {
@@ -30,36 +32,56 @@ body {
 
 h1 {
     font-family: 'Lobster', cursive;
+    font-size: 45px;
     font-weight: 300;
+    margin: 0;
+    margin-top: 1em;
 }
+
+
 
 h2 {
     font-family: 'Lobster', cursive;
     font-weight: 600;
 }
 
+header {
+    text-align: center;
+}
+
+.left-container {
+    margin-top: 10vh;
+    height: 30%;
+    order: 1;
+}
+
+.right-container {
+    height: 70%;
+    order: 2;
+}
 
 /*
  * Styles for the deck of cards
  */
 
 .deck {
-    width: 450px;
-    min-height: 460px;
+    z-index: 0;
+    width: 80vw;
     background: linear-gradient(160deg, #02ccba 0%, #aa7ecd 100%);
-    padding: 32px;
+    padding: 4vw;
     border-radius: 10px;
     box-shadow: 12px 15px 20px 0 rgba(46, 61, 73, 0.5);
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
-    margin: 0 0 2em;
+    margin: auto;
 }
 
 .deck .card {
-    height: 80px;
-    width: 80px;
+    width: 20%;
+    z-index: 1;
+    margin: 2%;
     background: #2e3d49;
     font-size: 0;
     color: #ffffff;
@@ -71,6 +93,12 @@ h2 {
     box-shadow: 5px 2px 20px 0 rgba(46, 61, 73, 0.5);
 }
 
+.deck .card:after {
+    content: "";
+    display: block;
+    padding-bottom: 100%;
+}
+
 .deck .card.open {
     transform: rotateY(0);
     background: #02b3e4;
@@ -78,7 +106,7 @@ h2 {
 }
 
 .deck .card.show {
-    font-size: 33px;
+    font-size: 40px;
 }
 
 .deck .card.match {
@@ -99,9 +127,9 @@ h2 {
  */
 
 .score-panel {
-    text-align: left;
-    width: 345px;
+    text-align: center;
     margin-bottom: 10px;
+    margin-top: 1em;
 }
 
 .score-panel .stars {
@@ -120,13 +148,20 @@ h2 {
     display: inline-block;
     margin-left: 50px;
 }
+
 .score-panel .restart {
     float: right;
     cursor: pointer;
+    margin-left: 50px;
 }
 
+.score-panel .restart .fa {
+    font-size: 40px;
+}
+
+
 .ratingText {
-    display:inline-block
+    display: inline-block
 }
 
 .finalRating li {
@@ -139,15 +174,103 @@ h2 {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 300px;
+    width: 60%;
+    max-height: 60%;
     z-index: 10;
     margin: auto;
-    border: 6px;
-    padding: 20px;
-    border-color: #444;
     border-radius: 10px;
-    background-color: #fff;
+    box-shadow: 12px 15px 20px 0 rgba(46, 61, 73, 0.5);
+    background: linear-gradient(200deg, #ccff66 0%, #99ffcc 100%);;
     text-align: center;
     display: none;
     cursor: pointer;
+    padding: 1em;
 }
+
+
+@media only screen and (orientation: landscape) {
+    .container {
+        flex-direction: row;
+    }
+    .left-container {
+        width: 20%;
+        margin: auto;
+        position: relative;
+        left: 0;
+    }
+
+    .right-container {
+        position: relative;
+        right: 0;
+        height: 100%;
+        width: 70%;
+    }
+
+    .deck {
+        width: 80vh;
+        margin-top: 10vh;
+    }
+    
+    .timer {
+        display: block;
+    }
+
+    .score-panel .restart {
+        position: fixed;
+        display: block;
+        top: 10vh;
+        margin-left: 0;
+        float: left;
+    }
+
+    .modal h2, p, div {
+        margin-top: 4px;
+        margin-bottom: 4px;
+    }
+   
+}
+
+/* 
+@media only screen and (orientation: landscape) {
+    .container {
+        flex-direction: row;
+    }
+    .left-container {
+        width: 20%;
+        margin: auto;
+        order: 1;
+        position: relative;
+        left: 0;
+    }
+
+    .right-container {
+        position: relative;
+        display: inline-block;
+        right: 0;
+        width: 70%;
+        order: 2;
+        padding: 1em;
+    }
+
+    .deck {
+        position: inherit;
+        transform: translate(0, 0);
+        width: 80vh;
+        max-height: 80vh;
+        margin: auto;
+        left: 0;
+    }
+    
+    .timer {
+        display: block;
+    }
+
+    .score-panel .restart {
+        position: fixed;
+        display: block;
+        top: 10vh;
+        margin-left: 0;
+        float: left;
+    }
+   
+} */
