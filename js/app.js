@@ -214,7 +214,8 @@ restartButton.addEventListener("click", function(){
     // Delete all cards
     cardsContainer.innerHTML = "";
 
-    // Reset related variables
+    // Reset related variablesopenedCards = [];
+    openedCards = [];
     matchedCards = [];
 
     moves = 0;
