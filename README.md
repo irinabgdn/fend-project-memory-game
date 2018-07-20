@@ -1,20 +1,26 @@
-# Memory Game Project
+## frontend-nanodegree-memory-game
 
+# Irina's Memory game
+
+### You can play the game [here](https://irinabgdn.github.io/fend-arcade-game/).
 ## Table of Contents
+1. [Description](hhttps://github.com/irinabgdn/fend-project-memory-game#description-)
+2. [Installation](https://github.com/irinabgdn/fend-project-memory-game#installation-)
+3. [Instructions](https://github.com/irinabgdn/fend-project-memory-game#instructions-)
+4. [Resources](https://github.com/irinabgdn/fend-project-memory-game#resources-)
 
-* [Instructions](#instructions)
-* [Contributing](#contributing)
+## Description
+This is a game project from [Udacity](www.udacity.com)'s FrontEnd Web Development nanodegree, a scholarship course offered by Google. 
+
+## Installation
+Play online [here](https://irinabgdn.github.io/fend-project-memory-game/) or clone [this](https://github.com/irinabgdn/fend-project-memory-game) repo.
 
 ## Instructions
+Use your mouse to flip cards. You have to match all the cards to win the game. 
 
-The starter project has some HTML and CSS styling to display a static version of the Memory Game project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
+The timer starts when the first card is flipped and stops when all the cards are matched. 
 
-To get started, open `js/app.js` and start building out the app's functionality
+The rating depends on the number of moves made in order to win the game. Less moves give a higher rating.
 
-For specific, detailed instructions, look at the project instructions in the [Udacity Classroom](https://classroom.udacity.com/me).
-
-## Contributing
-
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
-
-For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
+## Resources
+The timer method is built upon a solution for accurate JavaScript timers from [www.sitepoint.com](https://www.sitepoint.com/creating-accurate-timers-in-javascript/).
