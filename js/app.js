@@ -6,9 +6,11 @@ const iconList = ["fa fa-diamond", "fa fa-diamond", "fa fa-bolt","fa fa-bolt", "
 const cardsContainer = document.querySelector('.deck');
 const popUp = document.querySelector('.modal');
 
-let openedCards = [];
-let matchedCards = [];
-let gameStatus = false;
+let openedCards = [],
+    matchedCards = [],
+    gameStatus = false,
+    cardTimeout = false;
+
 
 function initGame() {
     // Shuffle iconList array
@@ -25,40 +27,44 @@ function initGame() {
         flip(card);
     }
 }
-
-
-// Cards click event
-function flip(card) {
     
+
+// Flip card on click
+function flip(card) {
+
+    // Cards click event
     card.addEventListener("click", function() {
 
-        // Check if this is the first card flipped
-        if (gameStatus === false) {
-            // Change game status
-            gameStatus = true;  
-            
-            // Start timer
-            startTime = new Date().getTime();
-            window.setTimeout(calculateTime, 1000);
-        }
+        // Prevent actions while flipping cards timeout active
+        if (!cardTimeout) {
+            // Check if this is the first card flipped
+            if (gameStatus === false) {
+                // Change game status
+                gameStatus = true;  
+                
+                // Start timer
+                startTime = new Date().getTime();
+                window.setTimeout(calculateTime, 1000);
+            }
 
-        // Define local variables
-        let currentCard = this;
-        let previousCard = openedCards[0];
-                    
-        // Check if there is an existing opened card
-        if (openedCards.length === 1) {
+            // Define local variables
+            let currentCard = this;
+            let previousCard = openedCards[0];
+                        
+            // Check if there is an existing opened card
+            if (openedCards.length === 1) {
 
-            currentCard.classList.add("open", "show", "disable");
-            openedCards.push(this);
+                currentCard.classList.add("open", "show", "disable");
+                openedCards.push(this);
+                
+                // Compare cards
+                compareCards(currentCard, previousCard);
             
-            // Compare cards
-            compareCards(currentCard, previousCard);
-        
-        } else {
-            // If there is no opened card, add the current card to the opened cards array
-            currentCard.classList.add("open", "show", "disable");
-            openedCards.push(this);
+            } else {
+                // If there is no opened card, add the current card to the opened cards array
+                currentCard.classList.add("open", "show", "disable");
+                openedCards.push(this);
+            }
         }
     });
 }
@@ -72,6 +78,7 @@ function compareCards(currentCard, previousCard) {
     // Set rating
     rating();
 
+    // Check if cards match
     if (currentCard.innerHTML === previousCard.innerHTML) {
 
         // If cards match, change style 
@@ -88,9 +95,11 @@ function compareCards(currentCard, previousCard) {
         checkGameStatus();
 
     } else {
+        // Set timeout boolean as active
+        cardTimeout = true;
+
         // Wait 400ms until cards flip backward
         setTimeout(function() {
-
             // If cards don't match, hide current card
             currentCard.classList.remove("open", "show", "disable");
             previousCard.classList.remove("open", "show", "disable");
@@ -98,7 +107,9 @@ function compareCards(currentCard, previousCard) {
             // Reset opened cards array
             openedCards = []; 
 
-        }, 400)                    
+            // Set timeout boolean as inactive
+            cardTimeout = false;
+        }, 400);                  
     }
 }
 
