@@ -4,7 +4,7 @@
 
 ### You can play the game [here](https://irinabgdn.github.io/fend-arcade-game/).
 ## Table of Contents
-1. [Description](hhttps://github.com/irinabgdn/fend-project-memory-game#description-)
+1. [Description](https://github.com/irinabgdn/fend-project-memory-game#description-)
 2. [Installation](https://github.com/irinabgdn/fend-project-memory-game#installation-)
 3. [Instructions](https://github.com/irinabgdn/fend-project-memory-game#instructions-)
 4. [Resources](https://github.com/irinabgdn/fend-project-memory-game#resources-)
